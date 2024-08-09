@@ -2,3 +2,10 @@
 .vscode
 node_modules
 commitlint.config.cjs
+.history
+.husky
+.vscode
+dist
+yarn.lock
+
+
