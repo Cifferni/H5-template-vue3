@@ -1,33 +1,49 @@
 import { fileURLToPath, URL } from 'node:url';
-import { defineConfig } from 'vite';
+import { defineConfig, type ESBuildOptions, type PluginOption } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import postcssPxToRem from 'postcss-pxtorem';
 import * as dotenv from 'dotenv';
 import { visualizer } from 'rollup-plugin-visualizer';
 
+interface defaultConfigType {
+  plugins:  PluginOption[] | undefined;
+  esbuild: false | ESBuildOptions | undefined
+}
+
 export default defineConfig(({ mode }) => {
   //获取当前环境的Env
   const env = dotenv.config({ path: `./env/.env.${mode}` });
-  // 根据环境不同使用不同的plugins
-  const getPlugins = () => {
-    // 在开发环境时候打开可视化
-    if (mode === 'development') {
-      return [vue(), visualizer({
-        open: true,
-        filename:'stats.html',
-        emitFile:false,
-      })];
-    } else {
-      return [vue()];
+  const defaultConfig: defaultConfigType = {
+    plugins: [vue(), visualizer({
+      open: true,
+      filename: 'stats.html',
+      emitFile: false
+    })],
+    esbuild: {
+      pure: [],
+      drop: []
     }
   };
+  if (mode === 'production') {
+    defaultConfig.plugins = [vue()];
+    defaultConfig.esbuild = {
+      pure: ['console.log'], // 删除 console.log
+      drop: ['debugger'] // 删除 debugger
+    };
+  }
+  // if (mode === 'development') {
+  // }
+  // if (mode === 'test') {
+  //
+  // }
   if (!env.parsed) {
     throw new Error('Failed to parse .env file');
   }
   return {
     base: './',
     envDir: './env',
-    plugins: getPlugins(),
+    plugins:defaultConfig.plugins,
+    esbuild:defaultConfig.esbuild,
     server: {
       proxy: {
         '^/api/.*': {

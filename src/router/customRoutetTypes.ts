@@ -17,4 +17,5 @@ export interface CustomRouteMeta extends RouteMeta {
 
 export interface CustomRouteRecordRaw extends Omit<RouteRecordRaw, 'meta'> {
   meta?: CustomRouteMeta;
+  hidden?: boolean;
 }

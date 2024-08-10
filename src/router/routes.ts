@@ -3,7 +3,6 @@ import type { CustomRouteRecordRaw } from './customRoutetTypes';
 const routes: Array<CustomRouteRecordRaw> = [
   {
     path: '/',
-    name: 'layoutPage',
     redirect: '/home',
     component: () => import('@/pages/layout/index.vue'),
     children: [
@@ -56,9 +55,9 @@ const routes: Array<CustomRouteRecordRaw> = [
             order: 3
           }
         }
-      },
-      { path: '/:pathMatch(.*)*', name: 'notFoundPage', component: () => import('@/pages/notFound/index.vue') }
+      }
     ]
-  }
+  },
+  { path: '/:pathMatch(.*)*', name: 'notFoundPage', component: () => import('@/pages/notFound/index.vue') }
 ];
 export default routes;
