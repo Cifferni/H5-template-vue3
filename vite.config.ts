@@ -3,17 +3,20 @@ import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import postcssPxToRem from 'postcss-pxtorem';
 import * as dotenv from 'dotenv';
+import { visualizer } from 'rollup-plugin-visualizer';
 
 export default defineConfig(({ mode }) => {
+
   //获取当前环境的Env
   const env = dotenv.config({ path: `./env/.env.${mode}` });
+  console.log(mode);
   if (!env.parsed) {
     throw new Error('Failed to parse .env file');
   }
   return {
     base: './',
     envDir: './env',
-    plugins: [vue()],
+    plugins: [vue(), visualizer({open: true})],
     server: {
       proxy: {
         '^/api/.*': {
