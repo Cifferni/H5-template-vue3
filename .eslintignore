@@ -7,5 +7,6 @@ commitlint.config.cjs
 .vscode
 dist
 yarn.lock
+stats.html
 
 

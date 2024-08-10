@@ -5,9 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite --mode development",
-    "build-pro": "vite --mode production",
-    "build-dev": "vite --mode development",
-    "build-test": "vite --mode test",
+    "build-pro": "yarn build  --mode production",
+    "build-dev": "yarn build  --mode development",
+    "build-test": "yarn build --mode test",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "build-only": "vite build",

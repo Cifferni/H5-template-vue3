@@ -31,3 +31,6 @@ yarn.lock
 *.sw?
 *.tsbuildinfo
 
+# files
+stats.html
+

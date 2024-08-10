@@ -6,17 +6,28 @@ import * as dotenv from 'dotenv';
 import { visualizer } from 'rollup-plugin-visualizer';
 
 export default defineConfig(({ mode }) => {
-
   //获取当前环境的Env
   const env = dotenv.config({ path: `./env/.env.${mode}` });
-  console.log(mode);
+  // 根据环境不同使用不同的plugins
+  const getPlugins = () => {
+    // 在开发环境时候打开可视化
+    if (mode === 'development') {
+      return [vue(), visualizer({
+        open: true,
+        filename:'stats.html',
+        emitFile:false,
+      })];
+    } else {
+      return [vue()];
+    }
+  };
   if (!env.parsed) {
     throw new Error('Failed to parse .env file');
   }
   return {
     base: './',
     envDir: './env',
-    plugins: [vue(), visualizer({open: true})],
+    plugins: getPlugins(),
     server: {
       proxy: {
         '^/api/.*': {
