@@ -1,13 +1,14 @@
 import { fileURLToPath, URL } from 'node:url';
-import { defineConfig, type ESBuildOptions, type PluginOption } from 'vite';
+import { BuildOptions, defineConfig, type ESBuildOptions, type PluginOption } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import postcssPxToRem from 'postcss-pxtorem';
 import * as dotenv from 'dotenv';
 import { visualizer } from 'rollup-plugin-visualizer';
 
 interface defaultConfigType {
-  plugins:  PluginOption[] | undefined;
-  esbuild: false | ESBuildOptions | undefined
+  plugins: PluginOption[] | undefined;
+  esbuild: false | ESBuildOptions | undefined;
+  build: BuildOptions | undefined;
 }
 
 export default defineConfig(({ mode }) => {
@@ -22,6 +23,17 @@ export default defineConfig(({ mode }) => {
     esbuild: {
       pure: [],
       drop: []
+    },
+    build: {
+      chunkSizeWarningLimit: 500,
+      sourcemap: true,
+      rollupOptions: {
+        output: {
+          chunkFileNames: 'js/[name]-[hash].js',
+          entryFileNames: 'js/[name]-[hash].js',
+          assetFileNames: '[ext]/[name]-[hash].[ext]'
+        }
+      }
     }
   };
   if (mode === 'production') {
@@ -30,6 +42,7 @@ export default defineConfig(({ mode }) => {
       pure: ['console.log'], // 删除 console.log
       drop: ['debugger'] // 删除 debugger
     };
+    if (defaultConfig.build) defaultConfig.build.sourcemap = false;
   }
   // if (mode === 'development') {
   // }
@@ -42,8 +55,8 @@ export default defineConfig(({ mode }) => {
   return {
     base: './',
     envDir: './env',
-    plugins:defaultConfig.plugins,
-    esbuild:defaultConfig.esbuild,
+    plugins: defaultConfig.plugins,
+    esbuild: defaultConfig.esbuild,
     server: {
       proxy: {
         '^/api/.*': {
@@ -80,15 +93,6 @@ export default defineConfig(({ mode }) => {
         '@': fileURLToPath(new URL('./src', import.meta.url))
       }
     },
-    build: {
-      rollupOptions: {
-        output: {
-          chunkFileNames: 'js/[name]-[hash].js',
-          entryFileNames: 'js/[name]-[hash].js',
-          assetFileNames: '[ext]/[name]-[hash].[ext]'
-        }
-      },
-      chunkSizeWarningLimit: 500
-    }
+    build: defaultConfig.build
   };
 });

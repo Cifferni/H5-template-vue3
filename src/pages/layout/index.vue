@@ -24,7 +24,6 @@ defineOptions({
 });
 onMounted(() => {
   getKeepAliveList();
-  console.log(keepAliveList);
 });
 const routerStore = useRouterStore();
 const { keepAliveList } = storeToRefs(routerStore);
