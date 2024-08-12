@@ -2,23 +2,24 @@
   <div class="home_Page">
     <NavBar />
     <div>{{ age }}</div>
-    <div @click="() => age++">++</div>
+    <Button type="success" @click="() => age++">增加</Button>
   </div>
 </template>
 
 <script setup lang="ts">
 import NavBar from '@/components/NavBar/index.vue';
 import { onMounted, ref } from 'vue';
+import { Button } from 'vant';
 
 defineOptions({
   name: 'homePage'
 });
-onMounted(() => {});
+onMounted(() => {
+});
 const age = ref<number>(0);
 </script>
 <style scoped lang="scss">
 .home_Page {
-  background: pink;
   height: 100%;
   width: 100%;
 }
