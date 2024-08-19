@@ -2,22 +2,20 @@
   <div>
     <Tabbar v-model="active" @change="switchingRoute">
       <Tabbar-item v-for="(item, index) in tabBarItemList" :key="item.name" :name="index">
-        <span>{{ item.name }}</span>
+        <span>{{ $t(`tabBar.${item.name}`) }}</span>
         <template #icon>
-          <Icon :name="item.icon" />
+          <Icon :name="item.meta.tabBarDetails.icon" />
         </template>
       </Tabbar-item>
     </Tabbar>
   </div>
 </template>
 <script lang="ts" setup>
-import { ref } from 'vue';
 import { Tabbar, TabbarItem, Icon } from 'vant';
-import { reactive, watchEffect, onBeforeMount } from 'vue';
+import { onBeforeMount, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import type { TabBarDetails } from '@/router/customRoutetTypes.ts';
 
-let tabBarItemList = reactive<TabBarDetails[]>([]);
+let tabBarItemList = ref<any[]>([]);
 let active = ref<number>(0);
 const router = useRouter();
 defineOptions({
@@ -25,26 +23,25 @@ defineOptions({
 });
 
 onBeforeMount(() => {
+  getTabBarItem();
   setActive();
 });
-
-function getTabBarItem(): Array<TabBarDetails> {
-  return router.getRoutes().reduce((acc: any, item: any) => {
+const getTabBarItem = () => {
+  tabBarItemList.value = router.getRoutes().reduce((acc: any, item: any) => {
     if (item.meta && item.meta.tabBarDetails) {
-      acc.push(item.meta.tabBarDetails);
+      acc.push(item);
     }
     return acc;
   }, []);
-}
+};
 
 const switchingRoute = (name: number) => {
-  router.replace(tabBarItemList[name].url);
+  router.replace({ name: tabBarItemList.value[name].name });
 };
 const setActive = () => {
-  active.value = tabBarItemList.findIndex((item) => item.url === router.currentRoute.value.path);
+  active.value = tabBarItemList.value.findIndex((item) => {
+    return item.name === router.currentRoute.value.name;
+  });
 };
-watchEffect(() => {
-  tabBarItemList = getTabBarItem();
-});
 </script>
 <style scoped lang="scss"></style>

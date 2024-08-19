@@ -13,22 +13,25 @@
   </div>
 </template>
 <script lang="ts" setup>
-import TabBar from '@/components/Tabar/Tabar.vue';
+import TabBar from '@/components/Tabar/index.vue';
 import { useRoute } from 'vue-router';
 import { watchEffect, ref, onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
-import { useRouterStore } from '@/store/routerStore';
+import { useRouterStore } from '@/store/modules/routerStore';
+// import { useThemeStore } from '@/store/modules/themeStore';
+// import { ConfigProvider } from 'vant';
 
 defineOptions({
   name: 'layoutPage'
 });
 onMounted(() => {
   getKeepAliveList();
+  // themeStore.setTheme(themeStore.currentTheme, false);
 });
 const routerStore = useRouterStore();
 const { keepAliveList } = storeToRefs(routerStore);
-
 const { getKeepAliveList } = routerStore;
+// const themeStore = useThemeStore();
 const transitionClass = ref<string>('');
 const route = useRoute();
 watchEffect(() => {

@@ -7,6 +7,7 @@
   transition: all 500ms;
   position: absolute;
   backface-visibility: hidden;
+  background: var(--bg-color);
 }
 .slide-right-enter {
   opacity: 0;

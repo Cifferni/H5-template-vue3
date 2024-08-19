@@ -7,7 +7,7 @@ import { visualizer } from 'rollup-plugin-visualizer';
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 
 interface defaultConfigType {
-  plugins: PluginOption[] ;
+  plugins: PluginOption[];
   esbuild: false | ESBuildOptions | undefined;
   build: BuildOptions | undefined;
 }
@@ -32,11 +32,12 @@ export default defineConfig(({ mode }) => {
         output: {
           chunkFileNames: 'js/[name]-[hash].js',
           entryFileNames: 'js/[name]-[hash].js',
-          assetFileNames: '[ext]/[name]-[hash].[ext]'
+          assetFileNames: 'assets/[ext]/[name]-[hash].[ext]'
         }
       }
     }
   };
+  //生产环境的判断
   if (mode === 'production') {
     defaultConfig.plugins = [vue()];
     defaultConfig.esbuild = {
@@ -57,7 +58,7 @@ export default defineConfig(({ mode }) => {
       },
       png: {
         quality: 50
-      },
+      }
     })],
     esbuild: defaultConfig.esbuild,
     server: {
@@ -72,7 +73,7 @@ export default defineConfig(({ mode }) => {
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: ''
+          additionalData: '@import "@/assets/theme/dark.scss"; @import "@/assets/theme/light.scss"; @import "@/assets/theme/red.scss";'
         }
       },
       postcss: {

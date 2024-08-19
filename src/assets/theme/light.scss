@@ -1,0 +1,22 @@
+:root:root[theme='light'] {
+  //背景颜色
+  --bg-color: #fff;
+  --bg-color-2: #f2f2f2;
+  --bg-color-3: #ebebeb;
+  --van-background: #fff;
+  --van-background-2: #fff;
+  --van-background-3: #ebebeb;
+  //文字颜色
+  --text-color: #000;
+  --van-text-color: #000;
+  --van-text-color-2: #888;
+  --van-text-color-3: #666;
+  //边框
+  --border-color: #ccc;
+  --van-border-color: #ccc;
+  //vant-picker样式
+  --van-picker-mask-color: linear-gradient(180deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.1)),
+    linear-gradient(0deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.1));
+  //vant 活动样式
+  --van-active-color: #ebebeb;
+}

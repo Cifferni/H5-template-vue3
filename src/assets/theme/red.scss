@@ -1,0 +1,22 @@
+:root:root[theme='red'] {
+  //背景颜色
+  --bg-color: #fff;
+  --bg-color-2: #fff;
+  --bg-color-3: #fff;
+  --van-background: #fff;
+  --van-background-2: #fff;
+  --van-background-3: #fff;
+  //文字颜色
+  --text-color: #000;
+  --van-text-color: #000;
+  --van-text-color-2: #000;
+  --van-text-color-3: #000;
+  //边框
+  --border-color: #cc0000;
+  --van-border-color: #cc0000;
+  //vant-picker样式
+  --van-picker-mask-color: linear-gradient(180deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.1)),
+    linear-gradient(0deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.1));
+  //vant 活动样式
+  --van-active-color: #ebebeb;
+}

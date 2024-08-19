@@ -3,8 +3,8 @@
   <NavBar :="navBarInfo">
     <template #left>
       <slot name="left">
-        <div @click="back">
-          <Icon name="arrow-left" color="#000000" size="18" />
+        <div @click="back" style="background: var(--bgcolor)">
+          <Icon name="arrow-left" size="18" />
           <span>返回</span>
         </div>
       </slot>

@@ -1,6 +1,4 @@
-import type { CustomRouteRecordRaw } from './customRoutetTypes';
-
-const routes: Array<CustomRouteRecordRaw> = [
+const routes = [
   {
     path: '/',
     redirect: '/home',
@@ -8,47 +6,41 @@ const routes: Array<CustomRouteRecordRaw> = [
     children: [
       {
         path: 'home',
-        name: 'homePage',
+        name: 'home',
         component: () => import('@/pages/home/index.vue'),
         meta: {
           transition: 'slide-left',
           title: '首页',
           keepAlive: true,
           tabBarDetails: {
-            name: '首页',
             icon: 'home-o',
             dot: false,
-            url: '/home',
             order: 1
           }
         }
       },
       {
         path: 'message',
-        name: 'messagePage',
+        name: 'message',
         component: () => import('@/pages/message/index.vue'),
         meta: {
           transition: 'fade',
           title: '消息',
           tabBarDetails: {
-            name: '消息',
             icon: 'chat-o',
             dot: false,
-            badge: '0',
-            url: '/message',
             order: 2
           }
         }
       },
       {
         path: 'me',
-        name: 'myPage',
+        name: 'me',
         component: () => import('@/pages/me/index.vue'),
         meta: {
           transition: 'fade',
           title: '我的',
           tabBarDetails: {
-            name: '我的',
             icon: 'home-o',
             dot: false,
             url: '/me',
