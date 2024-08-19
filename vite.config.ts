@@ -4,9 +4,10 @@ import vue from '@vitejs/plugin-vue';
 import postcssPxToRem from 'postcss-pxtorem';
 import * as dotenv from 'dotenv';
 import { visualizer } from 'rollup-plugin-visualizer';
+import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 
 interface defaultConfigType {
-  plugins: PluginOption[] | undefined;
+  plugins: PluginOption[] ;
   esbuild: false | ESBuildOptions | undefined;
   build: BuildOptions | undefined;
 }
@@ -44,18 +45,20 @@ export default defineConfig(({ mode }) => {
     };
     if (defaultConfig.build) defaultConfig.build.sourcemap = false;
   }
-  // if (mode === 'development') {
-  // }
-  // if (mode === 'test') {
-  //
-  // }
   if (!env.parsed) {
     throw new Error('Failed to parse .env file');
   }
   return {
     base: './',
     envDir: './env',
-    plugins: defaultConfig.plugins,
+    plugins: [...defaultConfig.plugins, ViteImageOptimizer({
+      jpg: {
+        quality: 50
+      },
+      png: {
+        quality: 50
+      },
+    })],
     esbuild: defaultConfig.esbuild,
     server: {
       proxy: {

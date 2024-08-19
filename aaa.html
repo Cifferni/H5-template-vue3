@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+<script>
+  // 伪代码，不是真正的实现
+  const myRef = {
+    _value: {
+      a:123,
+      b:123123,
+      c:[1,2,3,4,5]
+    },
+    get value() {
+      return this._value
+    },
+    set value(newValue) {
+      console.log(newValue);
+      this._value = newValue
+    }
+  }
+  myRef.value.c.push(123123)
+  console.log(myRef.value);
+</script>
+</body>
+</html>
