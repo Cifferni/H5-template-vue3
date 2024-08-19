@@ -1,7 +1,7 @@
 import { createApp } from 'vue';
 import App from './App.vue';
 
-import VueLazyLoad from 'vue3-lazyload'
+import VueLazyLoad from 'vue3-lazyload';
 import { createPinia } from 'pinia';
 import router from '@/router';
 import '@/utils/rem';
