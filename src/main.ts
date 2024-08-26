@@ -7,7 +7,7 @@ import '@/utils/rem';
 import '@/assets/styles/reset.scss';
 import 'vant/lib/index.css';
 import { i18n, setLang } from '@/i18n';
-export const loadImage = new URL('/src/assets/images/imgLazyLoad.gif', import.meta.url).href;
+const loadImage = new URL('/src/assets/images/imgLazyLoad.gif', import.meta.url).href;
 setLang();
 const app = createApp(App);
 // 多语
