@@ -2,6 +2,15 @@
 
 在学习vue3过程中写了写了一套vue3+typeScript+vant的h5模板
 
+* vue3+typeScript+vite
+* Sass预解析 
+* VantUI
+* 多环境变量
+* rem适配方案
+* vue-i18n多语种
+* css变量多种主题切换
+* pinia状态管理
+* esLint+Pettier 代码风格统一
 ## 编译和热重载开发
 ```sh
  yarn dev
