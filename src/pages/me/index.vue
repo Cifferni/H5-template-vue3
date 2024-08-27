@@ -29,7 +29,7 @@ const { tm } = useI18n();
 const inputText = ref<string>('中文');
 const currentLang = ref<string[]>(['zh-ch']);
 const showPicker = ref(false);
-const columns = computed(() => {
+const columns = computed((): { text: string; value: string }[] => {
   return [
     { text: tm('setLang["zh-cn"]'), value: 'zh-cn' },
     { text: tm('setLang["en-us"]'), value: 'en-us' }
