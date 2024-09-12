@@ -1,22 +1,27 @@
-import axios from 'axios';
-
-const baseURl = import.meta.env.VITE_BASE_API;
-const request = axios.create({
+import axios, { type AxiosError, type InternalAxiosRequestConfig, type AxiosInstance, type AxiosResponse } from 'axios';
+const baseURl = import.meta.env.VITE_APP_URL;
+// console.log(baseURl);
+const service: AxiosInstance = axios.create({
   baseURL: '/api',
   timeout: 5000
 });
-request.interceptors.request.use(
-  (config: any) => {
-    // 在这里坐登录。给请求头携带Token
+service.interceptors.request.use(
+  (config: InternalAxiosRequestConfig) => {
+    //登录成功后,需要把token添加到请求头当中,从今往后所有的请求当中都要带上这个token
+    const token = window.localStorage.getItem('token');
+    if (token) {
+      config.headers.token = token;
+    }
     return config;
   },
-  (error) => Promise.reject(error)
+  (error: AxiosError) => Promise.reject(error)
 );
-request.interceptors.response.use(
-  function (response) {
-    return Promise.reject(response.data);
+service.interceptors.response.use(
+  function (response: AxiosResponse) {
+    return Promise.resolve(response.data);
   },
-  function (error) {
+  function (error: any) {
+    console.log('requestError', error);
     return Promise.reject({
       url: baseURl + error.config.url,
       code: error.code,
@@ -24,4 +29,4 @@ request.interceptors.response.use(
     });
   }
 );
-export default request;
+export default service;

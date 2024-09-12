@@ -38,10 +38,15 @@ const getTabBarItem = () => {
 const switchingRoute = (name: number) => {
   router.replace({ name: tabBarItemList.value[name].name });
 };
+
 const setActive = () => {
   active.value = tabBarItemList.value.findIndex((item) => {
     return item.name === router.currentRoute.value.name;
   });
 };
+defineExpose({
+  tabBarItemList,
+  active
+});
 </script>
 <style scoped lang="scss"></style>

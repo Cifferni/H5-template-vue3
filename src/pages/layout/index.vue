@@ -9,7 +9,7 @@
         </transition>
       </router-view>
     </div>
-    <Tab-bar></Tab-bar>
+    <Tab-bar ref="tabBarRef"></Tab-bar>
   </div>
 </template>
 <script lang="ts" setup>
@@ -18,20 +18,17 @@ import { useRoute } from 'vue-router';
 import { watchEffect, ref, onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useRouterStore } from '@/store/modules/routerStore';
-// import { useThemeStore } from '@/store/modules/themeStore';
-// import { ConfigProvider } from 'vant';
-
 defineOptions({
   name: 'layoutPage'
 });
 onMounted(() => {
   getKeepAliveList();
-  // themeStore.setTheme(themeStore.currentTheme, false);
 });
+const tabBarRef = ref();
+
 const routerStore = useRouterStore();
 const { keepAliveList } = storeToRefs(routerStore);
 const { getKeepAliveList } = routerStore;
-// const themeStore = useThemeStore();
 const transitionClass = ref<string>('');
 const route = useRoute();
 watchEffect(() => {

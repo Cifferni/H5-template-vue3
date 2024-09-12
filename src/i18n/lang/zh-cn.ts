@@ -1,8 +1,8 @@
 export default {
   tabBar: {
-    home: '首页',
-    me: '我的',
-    message: '消息'
+    homePage: '首页',
+    mePage: '我的',
+    messagePage: '消息'
   },
   setLang: {
     lang: '语言',

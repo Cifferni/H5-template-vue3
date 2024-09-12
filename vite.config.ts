@@ -5,6 +5,7 @@ import postcssPxToRem from 'postcss-pxtorem';
 import * as dotenv from 'dotenv';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
+import { viteMockServe } from 'vite-plugin-mock';
 
 interface defaultConfigType {
   plugins: PluginOption[];
@@ -12,15 +13,23 @@ interface defaultConfigType {
   build: BuildOptions | undefined;
 }
 
-export default defineConfig(({ mode }) => {
+export default defineConfig(({ mode, command }) => {
   //获取当前环境的Env
   const env = dotenv.config({ path: `./env/.env.${mode}` });
   const defaultConfig: defaultConfigType = {
-    plugins: [vue(), visualizer({
-      open: true,
-      filename: 'stats.html',
-      emitFile: false
-    })],
+    plugins: [
+      vue(),
+      visualizer({
+        open: true,
+        filename: 'stats.html',
+        emitFile: false
+      }),
+      viteMockServe({
+        mockPath: 'mock',
+        enable: command === 'serve', // 只有开发环境才开启mock
+        logger: false
+      })
+    ],
     esbuild: {
       pure: [],
       drop: []
@@ -52,14 +61,17 @@ export default defineConfig(({ mode }) => {
   return {
     base: './',
     envDir: './env',
-    plugins: [...defaultConfig.plugins, ViteImageOptimizer({
-      jpg: {
-        quality: 50
-      },
-      png: {
-        quality: 50
-      }
-    })],
+    plugins: [
+      ...defaultConfig.plugins,
+      ViteImageOptimizer({
+        jpg: {
+          quality: 50
+        },
+        png: {
+          quality: 50
+        }
+      })
+    ],
     esbuild: defaultConfig.esbuild,
     server: {
       proxy: {
@@ -73,7 +85,8 @@ export default defineConfig(({ mode }) => {
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: '@import "@/assets/theme/dark.scss"; @import "@/assets/theme/light.scss"; @import "@/assets/theme/red.scss";'
+          additionalData:
+            '@import "@/assets/theme/dark.scss"; @import "@/assets/theme/light.scss"; @import "@/assets/theme/red.scss";'
         }
       },
       postcss: {

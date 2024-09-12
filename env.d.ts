@@ -22,4 +22,3 @@ declare module 'vuex' {
 declare module 'lodash' {
   export { debounce } from 'lodash';
 }
-

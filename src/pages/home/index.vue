@@ -3,7 +3,7 @@
     <PullRefresh v-model="refreshing" style="width: 100%; height: 100%; overflow-y: auto" @refresh="onRefresh">
       <Swipe :autoplay="3000">
         <SwipeItem v-for="(item, index) in imageList" :key="index">
-          <img v-lazy="item" class="swipe_image" alt="" />
+          <img :src="item" class="swipe_image" alt="" />
         </SwipeItem>
       </Swipe>
       <List v-model:loading="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
@@ -16,7 +16,6 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
 import { Swipe, SwipeItem, PullRefresh, List, Cell, BackTop } from 'vant';
-
 defineOptions({
   name: 'homePage'
 });

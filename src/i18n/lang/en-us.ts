@@ -1,9 +1,9 @@
 export default {
   //底部导航
   tabBar: {
-    home: 'Home',
-    me: 'Mine',
-    message: 'Message'
+    homePage: 'Home',
+    mePage: 'Mine',
+    messagePage: 'Message'
   },
   //设置语言
   setLang: {

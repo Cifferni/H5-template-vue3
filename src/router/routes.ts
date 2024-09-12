@@ -1,4 +1,4 @@
-const routes = [
+export const constRoutes = [
   {
     path: '/',
     redirect: '/home',
@@ -6,7 +6,7 @@ const routes = [
     children: [
       {
         path: 'home',
-        name: 'home',
+        name: 'homePage',
         component: () => import('@/pages/home/index.vue'),
         meta: {
           transition: 'slide-left',
@@ -21,10 +21,11 @@ const routes = [
       },
       {
         path: 'message',
-        name: 'message',
+        name: 'messagePage',
         component: () => import('@/pages/message/index.vue'),
         meta: {
-          transition: 'fade',
+          transition: 'slide-left',
+          keepAlive: true,
           title: '消息',
           tabBarDetails: {
             icon: 'chat-o',
@@ -35,7 +36,7 @@ const routes = [
       },
       {
         path: 'me',
-        name: 'me',
+        name: 'mePage',
         component: () => import('@/pages/me/index.vue'),
         meta: {
           transition: 'fade',
@@ -50,6 +51,11 @@ const routes = [
       }
     ]
   },
+  {
+    path: '/login',
+    name: 'loginPage',
+    component: () => import('@/pages/login/index.vue')
+  },
   { path: '/:pathMatch(.*)*', name: 'notFoundPage', component: () => import('@/pages/notFound/index.vue') }
 ];
-export default routes;
+export const asyncRoutes = [];
